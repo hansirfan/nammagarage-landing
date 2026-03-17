@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230" fill="none">
+  <!-- Outer shield -->
+  <path d="M100 8 L185 48 L185 135 Q185 188 100 222 Q15 188 15 135 L15 48 Z"
+        fill="url(#shieldGrad)" stroke="#C8A84B" stroke-width="2.5"/>
+
+  <!-- Inner shield bevel -->
+  <path d="M100 20 L173 56 L173 133 Q173 178 100 210 Q27 178 27 133 L27 56 Z"
+        fill="url(#innerGrad)" stroke="#8B7535" stroke-width="1"/>
+
+  <!-- Garage roofline / house shape -->
+  <path d="M55 88 L100 58 L145 88 L140 88 L140 105 L60 105 L60 88 Z"
+        fill="#C8A84B" opacity="0.9"/>
+  <path d="M52 90 L100 56 L148 90"
+        fill="none" stroke="#E8C86B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Car body silhouette -->
+  <g transform="translate(100,138)">
+    <!-- Main body -->
+    <rect x="-42" y="-14" width="84" height="22" rx="6" fill="#4A5580"/>
+    <!-- Cabin roof -->
+    <path d="M-22,-14 Q-16,-30 16,-30 Q28,-30 32,-14 Z" fill="#5A6590"/>
+    <!-- Windshield highlight -->
+    <path d="M-18,-14 Q-12,-27 14,-27 Q24,-27 28,-14 Z" fill="#7A88AA" opacity="0.5"/>
+    <!-- Windows -->
+    <rect x="-16" y="-27" width="14" height="13" rx="2" fill="#8AAAC8" opacity="0.7"/>
+    <rect x="2"   y="-27" width="14" height="13" rx="2" fill="#8AAAC8" opacity="0.7"/>
+    <!-- Front/rear bumpers -->
+    <rect x="-46" y="-8" width="12" height="10" rx="3" fill="#3A4570"/>
+    <rect x="34"  y="-8" width="12" height="10" rx="3" fill="#3A4570"/>
+    <!-- Headlights -->
+    <ellipse cx="-39" cy="-4" rx="4" ry="3" fill="#E8C86B" opacity="0.9"/>
+    <ellipse cx="39"  cy="-4" rx="4" ry="3" fill="#E8C86B" opacity="0.9"/>
+    <!-- Wheels -->
+    <circle cx="-26" cy="10" r="11" fill="#1E2235" stroke="#C8A84B" stroke-width="2"/>
+    <circle cx="-26" cy="10" r="5"  fill="#2E3550"/>
+    <circle cx="26"  cy="10" r="11" fill="#1E2235" stroke="#C8A84B" stroke-width="2"/>
+    <circle cx="26"  cy="10" r="5"  fill="#2E3550"/>
+    <!-- Speed lines -->
+    <line x1="-46" y1="-12" x2="-54" y2="-12" stroke="#C8A84B" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+    <line x1="-46" y1="-7"  x2="-56" y2="-7"  stroke="#C8A84B" stroke-width="1"   stroke-linecap="round" opacity="0.5"/>
+  </g>
+
+  <!-- Gear ring at bottom of shield -->
+  <g transform="translate(100,195)">
+    <circle r="14" fill="none" stroke="#C8A84B" stroke-width="2.5"/>
+    <circle r="7"  fill="#1B2340" stroke="#C8A84B" stroke-width="1.5"/>
+    <!-- Gear teeth -->
+    <rect x="-2.5" y="-17" width="5" height="6" rx="1.5" fill="#C8A84B"/>
+    <rect x="-2.5" y="11"  width="5" height="6" rx="1.5" fill="#C8A84B"/>
+    <rect x="-17"  y="-2.5" width="6" height="5" rx="1.5" fill="#C8A84B"/>
+    <rect x="11"   y="-2.5" width="6" height="5" rx="1.5" fill="#C8A84B"/>
+    <rect x="8"  y="-14" width="5" height="6" rx="1.5" fill="#C8A84B" transform="rotate(45,10,-11)"/>
+    <rect x="-13" y="8"  width="5" height="6" rx="1.5" fill="#C8A84B" transform="rotate(45,-11,11)"/>
+    <rect x="8"  y="8"  width="5" height="6" rx="1.5" fill="#C8A84B" transform="rotate(-45,11,11)"/>
+    <rect x="-13" y="-14" width="5" height="6" rx="1.5" fill="#C8A84B" transform="rotate(-45,-11,-11)"/>
+  </g>
+
+  <!-- Gold horizontal divider -->
+  <line x1="45" y1="168" x2="155" y2="168" stroke="#C8A84B" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Wrench icon (small, top-right of garage) -->
+  <g transform="translate(130,82) rotate(-30) scale(0.65)">
+    <rect x="-4" y="-22" width="8" height="28" rx="3" fill="#C8A84B"/>
+    <path d="M-8,-22 Q-8,-32 0,-32 Q8,-32 8,-22 Q8,-17 0,-20 Q-8,-17 -8,-22Z" fill="#C8A84B"/>
+    <rect x="-4" y="4" width="8" height="12" rx="2" fill="#A08030"/>
+  </g>
+
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#1E2A50"/>
+      <stop offset="50%"  stop-color="#151D3A"/>
+      <stop offset="100%" stop-color="#0E1428"/>
+    </linearGradient>
+    <linearGradient id="innerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#262E54"/>
+      <stop offset="100%" stop-color="#1A2245"/>
+    </linearGradient>
+  </defs>
+</svg>
