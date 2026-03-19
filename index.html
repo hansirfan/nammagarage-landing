@@ -85,7 +85,7 @@
       font-size: 16px; font-weight: 800; letter-spacing: -.3px;
       color: var(--text); text-decoration: none;
     }
-    .nav-logo img { width: 40px; height: 40px; border-radius: 0; object-fit: contain; }
+    .nav-logo img { width: 52px; height: 52px; border-radius: 0; object-fit: contain; filter: drop-shadow(0 0 6px rgba(255,107,0,0.3)); }
     .nav-logo span { color: var(--orange); }
     .nav-right { display: flex; align-items: center; gap: 10px; }
     .nav-try {
@@ -207,11 +207,6 @@
 
     /* ── HOW IT WORKS ── */
     .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:56px; position:relative; }
-    .steps::before {
-      content:''; position:absolute; top:52px; left:calc(33.33% - 12px); right:calc(33.33% - 12px);
-      height:1px; background:linear-gradient(90deg, var(--orange-border), var(--orange-border));
-      pointer-events:none;
-    }
     .step {
       background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius);
       padding:32px 28px; transition:border-color .2s, transform .2s;
@@ -359,12 +354,12 @@
         Free for the first 100 garages
       </div>
       <h1 class="r d1">
-        Stop writing<br/>
-        bills in<br/>
-        <span class="hl">notebooks.</span>
+        Your notebook<br/>
+        can't build<br/>
+        <span class="hl">customer trust.</span>
       </h1>
       <p class="hero-sub r d2">
-        Send professional WhatsApp invoices in 30 seconds. Track customers, payments, and service history — all from your phone.
+        A professional WhatsApp bill earns trust. A full service history gives your mechanic the knowledge to serve better. Namma Garage does both — free for two-wheeler garages, no training needed.
       </p>
       <div class="hero-actions r d3">
         <a href="#waitlist" class="btn-primary">🚀 Join the Waitlist — Free</a>
@@ -376,7 +371,7 @@
       <div class="phone">
         <div class="ph-status"><span>9:41</span><span>●●● 100%</span></div>
         <div class="ph-head">
-          <div class="ph-icon">🔧</div>
+          <div class="ph-icon"><img src="logo.png" alt="" style="width:32px;height:32px;object-fit:contain;border-radius:6px;"/></div>
           <div>
             <div class="ph-head-name">Namma Garage</div>
             <div class="ph-head-sub">Raju Auto Works · Today</div>
