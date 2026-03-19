@@ -208,6 +208,20 @@
       transition: border-color .2s, background .2s;
     }
     .btn-ghost:hover { border-color: var(--subtle); background: rgba(255,255,255,0.05); }
+    .btn-apk {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 26px; border-radius: 10px;
+      background: rgba(255,255,255,0.05); color: var(--text);
+      font-weight: 700; font-size: 15px;
+      border: 1px solid rgba(255,255,255,0.14);
+      cursor: pointer; text-decoration: none;
+      transition: border-color .2s, background .2s, transform .2s;
+    }
+    .btn-apk:hover { border-color: var(--orange); background: rgba(255,107,0,0.08); transform: translateY(-2px); }
+    .hero-apk-note {
+      margin-top: 14px; font-size: 12px; color: var(--subtle);
+      position: relative;
+    }
 
     .hero-stat-row {
       display: flex; gap: 0; flex-wrap: wrap; justify-content: center;
@@ -497,6 +511,64 @@
       background: var(--orange-dim); font-weight: 600;
     }
 
+    /* ── WAITLIST ── */
+    .waitlist {
+      padding: 120px 24px;
+      max-width: 600px; margin: 0 auto;
+      text-align: center;
+    }
+    .waitlist h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 900; letter-spacing: -1.5px; line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .waitlist h2 em { font-style: normal; color: var(--orange); }
+    .waitlist > p { color: var(--muted); font-size: 15px; margin-bottom: 40px; }
+    .waitlist-form {
+      display: flex; flex-direction: column; gap: 14px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 36px;
+      text-align: left;
+    }
+    .waitlist-form label {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.5px;
+      color: var(--muted); text-transform: uppercase; display: block;
+      margin-bottom: 6px;
+    }
+    .waitlist-form input {
+      width: 100%; padding: 12px 16px; border-radius: 10px;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      color: var(--text); font-size: 15px; font-family: inherit;
+      transition: border-color .2s;
+    }
+    .waitlist-form input:focus { outline: none; border-color: var(--orange); }
+    .waitlist-role-row {
+      display: flex; gap: 10px;
+    }
+    .role-btn {
+      flex: 1; padding: 11px 10px; border-radius: 10px;
+      background: rgba(255,255,255,0.03); border: 1.5px solid var(--border);
+      color: var(--muted); font-size: 13px; font-weight: 600;
+      cursor: pointer; text-align: center; transition: all .2s;
+      font-family: inherit;
+    }
+    .role-btn.active, .role-btn:focus { border-color: var(--orange); background: rgba(255,107,0,0.1); color: var(--text); outline: none; }
+    .waitlist-submit {
+      width: 100%; padding: 14px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--orange), #E05E00);
+      color: #fff; font-weight: 700; font-size: 15px;
+      border: none; cursor: pointer; font-family: inherit;
+      transition: transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(255,107,0,0.25);
+      margin-top: 4px;
+    }
+    .waitlist-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,107,0,.4); }
+    .waitlist-success {
+      display: none; text-align: center; padding: 24px;
+      color: var(--green); font-weight: 700; font-size: 16px;
+    }
+    .waitlist-note { font-size: 12px; color: var(--subtle); text-align: center; margin-top: 14px; }
+
     /* ── FINAL CTA ── */
     .final-cta {
       padding: 140px 24px;
@@ -605,9 +677,13 @@
   </p>
 
   <div class="hero-actions reveal reveal-delay-2">
-    <a href="https://namma-garage.vercel.app" class="btn-primary" target="_blank" rel="noopener">Get Early Access — Free</a>
-    <a href="#how-it-works" class="btn-ghost">See how it works</a>
+    <a href="#waitlist" class="btn-primary">🚀 Join the Waitlist — Free</a>
+    <a href="NammaGarage.apk" class="btn-apk" download aria-label="Download Namma Garage APK for Android">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download APK
+    </a>
   </div>
+  <div class="hero-apk-note reveal reveal-delay-3">📱 Android APK · Works offline · No Play Store needed</div>
 
   <div class="hero-stat-row reveal reveal-delay-3">
     <div class="hero-stat">
@@ -862,6 +938,40 @@
 </section>
 
 
+<!-- WAITLIST -->
+<section class="waitlist" id="waitlist" aria-labelledby="waitlist-heading">
+  <div class="section-label reveal" style="justify-content:center">Early access</div>
+  <h2 id="waitlist-heading" class="reveal">Be the first garage in <em>your area</em></h2>
+  <p class="reveal">Join 200+ mechanics already on the waitlist. Free forever for early members.</p>
+
+  <div class="waitlist-form reveal" id="waitlist-form">
+    <div>
+      <label for="wl-name">Your name</label>
+      <input type="text" id="wl-name" name="name" placeholder="e.g. Rajan Kumar" autocomplete="name" required/>
+    </div>
+    <div>
+      <label for="wl-phone">WhatsApp number</label>
+      <input type="tel" id="wl-phone" name="phone" placeholder="+91 98765 43210" autocomplete="tel" required/>
+    </div>
+    <div>
+      <label>I am a…</label>
+      <div class="waitlist-role-row" role="group" aria-label="Select your role">
+        <button type="button" class="role-btn active" id="role-mechanic" onclick="selectRole('mechanic')">🔧 Mechanic / Garage owner</button>
+        <button type="button" class="role-btn" id="role-biker" onclick="selectRole('biker')">🏍️ Bike owner</button>
+      </div>
+      <input type="hidden" id="wl-role" value="mechanic"/>
+    </div>
+    <button class="waitlist-submit" type="button" onclick="submitWaitlist()">🚀 Reserve my spot — Free</button>
+    <p class="waitlist-note">No spam. We'll send one message when we launch near you.</p>
+  </div>
+  <div class="waitlist-success" id="waitlist-success">
+    ✅ You're on the list! We'll WhatsApp you when Namma Garage launches near you.
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
 <!-- FINAL CTA -->
 <section class="final-cta" id="early-access">
   <div class="section-label reveal" style="justify-content:center">Get started</div>
@@ -880,15 +990,19 @@
 
 <!-- FOOTER -->
 <footer role="contentinfo">
-  <div class="footer-logo">
-    <img src="logo.svg?v=2" alt="" width="24" height="24" onerror="this.outerHTML='🔧'"/>
-    Namma<span>Garage</span>
+  <div>
+    <div class="footer-logo">
+      <img src="logo.svg?v=2" alt="" width="24" height="24" onerror="this.outerHTML='🔧'"/>
+      Namma<span>Garage</span>
+    </div>
+    <p style="margin-top:8px;font-size:12px;color:var(--subtle)">Built with ❤️ in Bengaluru by <a href="https://www.linkedin.com/in/syedhussain" target="_blank" rel="noopener noreferrer" style="color:var(--muted);text-decoration:underline;text-underline-offset:3px">Syed Hussain</a></p>
   </div>
   <p>&copy; 2026 NammaGarage. Built in Bengaluru.</p>
   <div class="footer-links">
     <a href="#">Privacy</a>
     <a href="#">Terms</a>
     <a href="mailto:hello@nammagarage.in">Contact</a>
+    <a href="https://www.linkedin.com/in/syedhussain" target="_blank" rel="noopener noreferrer" aria-label="Founder LinkedIn (opens in new tab)">LinkedIn</a>
   </div>
 </footer>
 
@@ -899,6 +1013,40 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+<!-- WAITLIST SCRIPT -->
+<script>
+  function selectRole(role) {
+    document.getElementById('wl-role').value = role;
+    document.getElementById('role-mechanic').classList.toggle('active', role === 'mechanic');
+    document.getElementById('role-biker').classList.toggle('active', role === 'biker');
+  }
+
+  function submitWaitlist() {
+    const name = document.getElementById('wl-name').value.trim();
+    const phone = document.getElementById('wl-phone').value.trim();
+    const role = document.getElementById('wl-role').value;
+
+    if (!name) { document.getElementById('wl-name').focus(); return; }
+    if (!phone) { document.getElementById('wl-phone').focus(); return; }
+
+    // Store locally as fallback
+    const entry = { name, phone, role, ts: Date.now() };
+    const existing = JSON.parse(localStorage.getItem('ng_waitlist') || '[]');
+    existing.push(entry);
+    localStorage.setItem('ng_waitlist', JSON.stringify(existing));
+
+    // Send to Formspree (no backend needed)
+    fetch('https://formspree.io/f/mwpkrdpj', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ name, phone, role })
+    }).catch(() => {}); // fail silently — localStorage already saved
+
+    document.getElementById('waitlist-form').style.display = 'none';
+    document.getElementById('waitlist-success').style.display = 'block';
+  }
 </script>
 
 </body>
