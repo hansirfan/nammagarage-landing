@@ -3,38 +3,47 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Namma Garage — Built for India's Mechanics</title>
-  <meta name="description" content="Digital billing and service management for independent two-wheeler garages. Built for Bengaluru. Scaling across India."/>
+  <title>Namma Garage — Stop writing bills in notebooks</title>
+  <meta name="description" content="Send professional WhatsApp invoices in 30 seconds. Free billing app for Indian two-wheeler garages. No training needed."/>
+
+  <!-- LinkedIn / OG -->
+  <meta property="og:title" content="Namma Garage — Stop writing bills in notebooks"/>
+  <meta property="og:description" content="Send professional WhatsApp invoices in 30 seconds. Free for Indian two-wheeler garages."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://nammagarage-landing.vercel.app"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&display=swap" rel="stylesheet"/>
+
   <style>
+    /* ── RESET ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --orange: #FF6B00;
-      --orange-soft: #FF8533;
-      --orange-dim: rgba(255, 107, 0, 0.10);
-      --orange-glow: rgba(255, 107, 0, 0.25);
-      --gold: #D4A843;
-      --gold-dim: rgba(212, 168, 67, 0.12);
-      --green: #22C55E;
-      --green-dim: rgba(34, 197, 94, 0.10);
-      --blue: #3B82F6;
-      --bg: #060609;
-      --bg2: #0C0C12;
-      --card: #0F1017;
-      --card-hover: #14151E;
-      --border: rgba(255,255,255,0.06);
-      --border-hover: rgba(255,107,0,0.35);
-      --text: #F1F1F4;
-      --muted: #9B9BAA;   /* WCAG AA 4.6:1 on --bg */
-      --subtle: #6B6B7A;  /* WCAG AA 4.5:1 on --bg */
-    }
-
     html { scroll-behavior: smooth; }
 
+    /* ── TOKENS ── */
+    :root {
+      --orange: #FF6B00;
+      --orange-glow: rgba(255,107,0,0.18);
+      --orange-dim: rgba(255,107,0,0.10);
+      --orange-border: rgba(255,107,0,0.28);
+      --green: #22C55E;
+      --green-dim: rgba(34,197,94,0.10);
+      --bg: #070707;
+      --surface: #111;
+      --surface2: #161616;
+      --border: rgba(255,255,255,0.07);
+      --border-strong: rgba(255,255,255,0.12);
+      --text: #EFEFEF;
+      --muted: #888;
+      --subtle: #555;
+      --max: 1080px;
+      --radius: 16px;
+    }
+
     body {
-      font-family: 'Inter', -apple-system, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
@@ -42,1012 +51,576 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── SKIP NAV (WCAG 2.4.1) ── */
-    .skip-link {
-      position: absolute; top: -100%; left: 16px;
-      background: var(--orange); color: #fff; padding: 10px 20px;
-      border-radius: 8px; font-weight: 700; font-size: 14px;
-      z-index: 200; text-decoration: none;
-    }
-    .skip-link:focus { top: 12px; }
+    /* ── SCROLL REVEAL ── */
+    .r { opacity: 0; transform: translateY(28px); transition: opacity .65s cubic-bezier(.16,1,.3,1), transform .65s cubic-bezier(.16,1,.3,1); }
+    .r.in { opacity: 1; transform: none; }
+    .d1 { transition-delay: .1s; }
+    .d2 { transition-delay: .2s; }
+    .d3 { transition-delay: .3s; }
+    .d4 { transition-delay: .4s; }
 
-    /* ── FOCUS STYLES (WCAG 2.4.7) ── */
-    :focus-visible {
-      outline: 3px solid var(--orange);
-      outline-offset: 3px;
-      border-radius: 4px;
-    }
-    a:focus-visible, button:focus-visible { outline-offset: 3px; }
-
-    /* ── REDUCED MOTION (WCAG 2.3.3) ── */
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-      html { scroll-behavior: auto; }
-      .reveal { opacity: 1; transform: none; transition: none; }
-    }
-
-    /* ── REVEAL ANIMATIONS ── */
-    .reveal {
-      opacity: 0; transform: translateY(28px);
-      transition: opacity 0.7s cubic-bezier(.16,1,.3,1), transform 0.7s cubic-bezier(.16,1,.3,1);
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
+    /* ── ANIMATIONS ── */
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+    @keyframes pulse-dot { 0%,100% { opacity:1; } 50% { opacity:.3; } }
+    @keyframes gradient-shift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    @keyframes fadeIn { from { opacity:0; transform:scale(.97); } to { opacity:1; transform:scale(1); } }
+    @keyframes slide-up { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
 
     /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 40px;
-      background: rgba(6,6,9,0.8);
-      backdrop-filter: blur(20px) saturate(1.4);
-      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      padding: 14px 24px;
+      background: rgba(7,7,7,0.88);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
+      animation: slide-up .5s ease both;
     }
     .nav-logo {
-      display: flex; align-items: center; gap: 12px;
-      font-weight: 800; font-size: 18px; letter-spacing: 0.3px; color: var(--text);
-      text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 16px; font-weight: 800; letter-spacing: -.3px;
+      color: var(--text); text-decoration: none;
     }
+    .nav-logo img { width: 26px; height: 26px; border-radius: 8px; }
     .nav-logo span { color: var(--orange); }
-    .nav-logo-img {
-      width: 36px; height: 36px; border-radius: 8px; object-fit: contain;
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .nav-try {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 18px; background: var(--orange); color: #000;
+      border-radius: 100px; font-weight: 700; font-size: 13px;
+      text-decoration: none; transition: opacity .15s, transform .15s;
     }
-    .nav-logo-fallback {
-      width: 36px; height: 36px; border-radius: 10px;
-      background: linear-gradient(135deg, var(--orange), #CC5500);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; box-shadow: 0 2px 12px rgba(255,107,0,0.3);
-    }
-    .nav-links { display: flex; align-items: center; gap: 32px; }
-    .nav-link {
-      font-size: 13px; font-weight: 500; color: var(--muted);
-      text-decoration: none; transition: color .2s;
-    }
-    .nav-link:hover { color: var(--text); }
-    .nav-cta {
-      padding: 9px 22px; border-radius: 8px;
-      background: var(--orange); color: #fff;
-      font-weight: 700; font-size: 13px; border: none;
-      cursor: pointer; text-decoration: none;
-      transition: transform .15s, box-shadow .2s;
-      box-shadow: 0 2px 12px rgba(255,107,0,0.2);
-    }
-    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(255,107,0,0.4); }
+    .nav-try:hover { opacity: .88; transform: translateY(-1px); }
 
     /* ── HERO ── */
     .hero {
       min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center;
-      padding: 140px 24px 80px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 110px 24px 80px;
       position: relative; overflow: hidden;
     }
-    .hero::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      background:
-        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255,107,0,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 40% at 70% 20%, rgba(255,107,0,0.06) 0%, transparent 50%);
+    .hero-glow {
+      position: absolute; top: -10%; left: 50%; transform: translateX(-50%);
+      width: 900px; height: 700px;
+      background: radial-gradient(ellipse at center, rgba(255,107,0,.07) 0%, transparent 65%);
       pointer-events: none;
     }
-    /* Grid pattern overlay */
-    .hero::after {
-      content: ''; position: absolute; inset: 0;
-      background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                         linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 64px 64px;
-      mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 30%, transparent 70%);
-      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 30%, transparent 70%);
-      pointer-events: none;
+    .hero-inner {
+      max-width: var(--max); width: 100%;
+      display: grid; grid-template-columns: 1fr 420px; gap: 72px; align-items: center;
     }
-
-    .hero-logo {
-      width: 80px; height: 80px; border-radius: 20px; object-fit: contain;
-      margin-bottom: 28px; position: relative;
-      filter: drop-shadow(0 4px 24px rgba(255,107,0,0.3));
+    .badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 6px 14px;
+      background: var(--orange-dim); border: 1px solid var(--orange-border);
+      border-radius: 100px; font-size: 12px; font-weight: 600; color: var(--orange);
+      margin-bottom: 24px; letter-spacing: .2px;
     }
-    .hero-logo-fallback {
-      width: 80px; height: 80px; border-radius: 20px;
-      background: linear-gradient(135deg, var(--orange), #CC5500);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 40px; margin-bottom: 28px;
-      box-shadow: 0 4px 32px rgba(255,107,0,0.35);
+    .badge-dot { width: 7px; height: 7px; background: var(--orange); border-radius: 50%; animation: pulse-dot 1.5s ease-in-out infinite; }
+    .hero h1 {
+      font-size: clamp(40px, 5.5vw, 68px);
+      font-weight: 900; line-height: 1.04; letter-spacing: -2.5px;
+      margin-bottom: 22px;
     }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 7px 16px; border-radius: 100px;
-      border: 1px solid rgba(255,107,0,0.3);
-      background: rgba(255,107,0,0.06);
-      font-size: 12px; font-weight: 600; color: var(--orange-soft);
-      margin-bottom: 32px; letter-spacing: 0.3px;
-      backdrop-filter: blur(8px);
+    .hero h1 .hl {
+      background: linear-gradient(135deg, #FF6B00 0%, #FFB347 50%, #FFD600 100%);
+      background-size: 200% 200%;
+      animation: gradient-shift 4s ease infinite;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
-    .hero-badge-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 8px rgba(34,197,94,0.5);
-      animation: pulse-dot 2s ease-in-out infinite;
-    }
-    @keyframes pulse-dot {
-      0%,100% { opacity:1; box-shadow: 0 0 8px rgba(34,197,94,0.5); }
-      50% { opacity:.5; box-shadow: 0 0 4px rgba(34,197,94,0.2); }
-    }
-
-    h1 {
-      font-size: clamp(36px, 5.5vw, 68px);
-      font-weight: 900; line-height: 1.08; letter-spacing: -2.5px;
-      max-width: 780px; margin-bottom: 20px;
-      position: relative;
-    }
-    h1 em { font-style: normal; color: var(--orange); }
     .hero-sub {
-      font-size: clamp(15px, 1.8vw, 17px);
-      color: var(--muted); max-width: 480px;
-      margin-bottom: 40px; line-height: 1.7;
+      font-size: 18px; color: var(--muted); line-height: 1.7;
+      max-width: 440px; margin-bottom: 36px;
     }
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; position: relative; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
     .btn-primary {
-      padding: 14px 30px; border-radius: 10px;
-      background: linear-gradient(135deg, var(--orange), #E05E00);
-      color: #fff;
-      font-weight: 700; font-size: 15px; border: none;
-      cursor: pointer; text-decoration: none;
-      transition: transform .2s, box-shadow .2s;
-      box-shadow: 0 4px 20px rgba(255,107,0,0.25);
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(255,107,0,.45); }
-    .btn-ghost {
-      padding: 14px 28px; border-radius: 10px;
-      background: rgba(255,255,255,0.03); color: var(--text);
-      font-weight: 600; font-size: 15px;
-      border: 1px solid var(--border);
-      cursor: pointer; text-decoration: none;
-      transition: border-color .2s, background .2s;
-    }
-    .btn-ghost:hover { border-color: var(--subtle); background: rgba(255,255,255,0.05); }
-    .btn-apk {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 14px 26px; border-radius: 10px;
-      background: rgba(255,255,255,0.05); color: var(--text);
-      font-weight: 700; font-size: 15px;
-      border: 1px solid rgba(255,255,255,0.14);
-      cursor: pointer; text-decoration: none;
-      transition: border-color .2s, background .2s, transform .2s;
+      padding: 15px 28px; background: var(--orange); color: #000;
+      border-radius: 100px; font-weight: 800; font-size: 15px;
+      text-decoration: none; letter-spacing: -.2px;
+      transition: transform .15s, box-shadow .2s;
     }
-    .btn-apk:hover { border-color: var(--orange); background: rgba(255,107,0,0.08); transform: translateY(-2px); }
-    .hero-apk-note {
-      margin-top: 14px; font-size: 12px; color: var(--subtle);
-      position: relative;
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(255,107,0,.45); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 15px 24px; background: transparent; color: var(--text);
+      border: 1px solid var(--border-strong); border-radius: 100px;
+      font-weight: 600; font-size: 15px; text-decoration: none;
+      transition: border-color .15s, background .15s;
     }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.04); }
 
-    .hero-stat-row {
-      display: flex; gap: 0; flex-wrap: wrap; justify-content: center;
-      margin-top: 72px;
-      width: 100%; max-width: 700px;
-    }
-    .hero-stat {
-      text-align: center; flex: 1; min-width: 140px;
-      padding: 28px 16px;
-      border-right: 1px solid var(--border);
-    }
-    .hero-stat:last-child { border-right: none; }
-    .hero-stat-num {
-      font-size: 32px; font-weight: 800; color: var(--text);
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .hero-stat-num span { color: var(--orange); }
-    .hero-stat-label { font-size: 11px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
-
-    /* ── MARQUEE LOGOS ── */
-    .marquee-section {
-      padding: 48px 0;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+    /* ── PHONE ── */
+    .phone-wrap { display: flex; justify-content: center; animation: float 4.5s ease-in-out infinite; }
+    .phone {
+      width: 240px;
+      background: #111; border-radius: 38px;
+      border: 1.5px solid rgba(255,255,255,.1);
+      box-shadow: 0 60px 100px rgba(0,0,0,.85), 0 0 0 1px rgba(255,255,255,.04), inset 0 0 60px rgba(255,107,0,.035);
       overflow: hidden;
     }
-    .marquee-label {
-      text-align: center; font-size: 11px; font-weight: 600;
-      letter-spacing: 2px; color: var(--subtle); text-transform: uppercase;
-      margin-bottom: 24px;
+    .ph-status { background:#111; padding:10px 20px 6px; display:flex; justify-content:space-between; font-size:9px; font-weight:700; color:#fff; }
+    .ph-head {
+      background: linear-gradient(135deg,#1a1a1a,#111);
+      padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,.06);
+      display: flex; align-items: center; gap: 9px;
     }
-    .marquee-track {
-      display: flex; gap: 48px; align-items: center; justify-content: center;
-      flex-wrap: wrap; padding: 0 24px; opacity: 0.5;
-    }
-    .marquee-item {
-      font-size: 15px; font-weight: 700; color: var(--subtle);
-      white-space: nowrap; letter-spacing: 1px;
-    }
+    .ph-icon { width:26px; height:26px; background:var(--orange); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
+    .ph-head-name { font-size:11px; font-weight:800; color:#fff; }
+    .ph-head-sub { font-size:8.5px; color:#555; }
+    .ph-stats { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:10px; }
+    .ph-stat { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06); border-radius:10px; padding:10px; }
+    .ph-stat-val { font-size:17px; font-weight:900; color:#fff; }
+    .ph-stat-val span { color:var(--orange); font-size:13px; }
+    .ph-stat-lbl { font-size:7.5px; color:#555; margin-top:1px; text-transform:uppercase; letter-spacing:.5px; }
+    .ph-inv { margin:0 10px 8px; background:rgba(255,107,0,.07); border:1px solid rgba(255,107,0,.18); border-radius:10px; padding:10px; }
+    .ph-inv-row { display:flex; justify-content:space-between; align-items:flex-start; }
+    .ph-inv-name { font-size:10px; font-weight:800; color:#fff; }
+    .ph-inv-sub { font-size:8px; color:#555; margin-top:2px; }
+    .ph-inv-amt { font-size:12px; font-weight:900; color:var(--orange); }
+    .ph-badge { display:inline-flex; align-items:center; gap:3px; margin-top:6px; font-size:7.5px; font-weight:700; background:rgba(34,197,94,.12); color:#22C55E; border-radius:4px; padding:2px 7px; }
+    .ph-wa { margin:0 10px 10px; background:#1a5c2e; border-radius:10px; padding:10px 12px; display:flex; align-items:center; justify-content:center; gap:6px; font-size:9.5px; font-weight:700; color:#fff; }
 
-    /* ── STORY (PROBLEM) ── */
-    .story {
-      padding: 120px 24px;
-      max-width: 760px; margin: 0 auto;
+    /* ── PROOF BAR ── */
+    .proof-bar {
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      padding: 24px;
+      display: flex; justify-content: center; gap: 64px; flex-wrap: wrap;
     }
-    .section-label {
-      font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
-      color: var(--orange); text-transform: uppercase; margin-bottom: 20px;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .section-label::before {
-      content: ''; width: 20px; height: 1.5px; background: var(--orange); display: block;
-    }
-    .story-quote {
-      font-size: clamp(22px, 3vw, 30px);
-      font-weight: 700; line-height: 1.5;
-      color: var(--text); margin-bottom: 36px;
-    }
-    .story-quote em { font-style: normal; color: var(--muted); }
-    .story-body {
-      font-size: 16px; color: var(--muted); line-height: 1.9;
-      border-left: 2px solid var(--orange);
-      padding-left: 28px;
-    }
-    .story-body p + p { margin-top: 18px; }
-    .story-body strong { color: var(--text); font-weight: 600; }
+    .proof-item { display:flex; align-items:center; gap:14px; }
+    .proof-num { font-size:26px; font-weight:900; color:var(--orange); letter-spacing:-1px; font-variant-numeric:tabular-nums; }
+    .proof-text { font-size:13px; color:var(--muted); line-height:1.35; }
 
-    /* ── FEATURES ── */
-    .features {
-      padding: 120px 24px;
-      max-width: 1100px; margin: 0 auto;
-    }
-    .features-header { text-align: center; margin-bottom: 64px; }
-    .features-header h2 {
-      font-size: clamp(28px, 4vw, 44px);
-      font-weight: 800; letter-spacing: -1.5px; line-height: 1.15;
-      margin-bottom: 14px;
-    }
-    .features-header p { color: var(--muted); font-size: 15px; max-width: 400px; margin: 0 auto; }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
-    }
-    .feature-card {
-      background: var(--card);
-      padding: 36px 28px;
-      transition: background .25s;
-      cursor: default;
-      position: relative;
-    }
-    .feature-card::after {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(circle at 50% 0%, rgba(255,107,0,0.06) 0%, transparent 60%);
-      opacity: 0; transition: opacity .3s; pointer-events: none;
-    }
-    .feature-card:hover { background: var(--card-hover); }
-    .feature-card:hover::after { opacity: 1; }
-    .feature-icon {
-      width: 44px; height: 44px; border-radius: 12px;
-      background: var(--orange-dim);
-      border: 1px solid rgba(255,107,0,0.15);
-      display: flex; align-items: center;
-      justify-content: center; font-size: 20px; margin-bottom: 20px;
-    }
-    .feature-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
-    .feature-card p { font-size: 13px; color: var(--muted); line-height: 1.7; }
-
-    /* ── APP PREVIEW MOCK ── */
-    .app-preview {
-      padding: 80px 24px 120px;
-      text-align: center;
-      position: relative;
-    }
-    .app-preview-header { margin-bottom: 48px; }
-    .app-preview-header h2 {
-      font-size: clamp(24px, 3.5vw, 36px);
-      font-weight: 800; letter-spacing: -1px; margin-bottom: 10px;
-    }
-    .app-preview-header p { color: var(--muted); font-size: 15px; }
-    .phone-mock {
-      width: 280px; margin: 0 auto;
-      background: #1A1A1E; border-radius: 32px;
-      padding: 12px; position: relative;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08), inset 0 0 0 1px rgba(255,255,255,0.04);
-    }
-    .phone-screen {
-      border-radius: 22px; overflow: hidden;
-      background: #111; aspect-ratio: 9/19.5;
-    }
-    .phone-notch {
-      width: 100px; height: 20px; margin: 0 auto;
-      background: #1A1A1E; border-radius: 0 0 14px 14px;
-      position: relative; top: 0; z-index: 2;
-    }
-    .phone-content { padding: 16px 14px; }
-    .phone-header {
-      background: var(--orange); border-radius: 0 0 14px 14px;
-      padding: 12px 14px; margin: -16px -14px 14px; text-align: left;
-    }
-    .phone-header-name { font-size: 13px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; }
-    .phone-header-date { font-size: 8px; color: rgba(255,255,255,0.6); margin-top: 2px; }
-    .phone-btn {
-      background: #1A1A1E; border: 1.5px solid var(--orange);
-      border-radius: 8px; padding: 10px; text-align: center;
-      margin-bottom: 12px;
-    }
-    .phone-btn-text { font-size: 10px; font-weight: 800; color: var(--orange); letter-spacing: 1.5px; }
-    .phone-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 10px; }
-    .phone-stat-card {
-      background: #1A1A1E; border-radius: 8px; padding: 10px 8px; text-align: center;
-      border-left: 2px solid var(--orange);
-    }
-    .phone-stat-card:nth-child(2) { border-left-color: var(--green); }
-    .phone-stat-val {
-      font-size: 14px; font-weight: 800; color: var(--orange);
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .phone-stat-card:nth-child(2) .phone-stat-val { color: var(--green); }
-    .phone-stat-lbl { font-size: 7px; color: var(--muted); margin-top: 2px; text-transform: uppercase; }
-    .phone-chart-label { font-size: 7px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; text-align: left; }
-    .phone-chart { display: flex; align-items: flex-end; gap: 3px; height: 28px; }
-    .phone-bar { flex: 1; border-radius: 2px 2px 0 0; background: rgba(255,107,0,0.3); min-height: 3px; }
-    .phone-bar.today { background: var(--orange); }
+    /* ── SECTIONS ── */
+    .section { padding: 96px 24px; }
+    .section.alt { background: var(--surface); }
+    .wrap { max-width: var(--max); margin: 0 auto; }
+    .eyebrow { font-size:11px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--orange); margin-bottom:14px; }
+    .section-h { font-size:clamp(28px,4vw,46px); font-weight:900; letter-spacing:-1.5px; line-height:1.08; margin-bottom:14px; }
+    .section-p { font-size:16px; color:var(--muted); max-width:500px; line-height:1.7; }
 
     /* ── HOW IT WORKS ── */
-    .how {
-      padding: 120px 24px;
-      position: relative;
+    .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:56px; position:relative; }
+    .steps::before {
+      content:''; position:absolute; top:52px; left:calc(33.33% - 12px); right:calc(33.33% - 12px);
+      height:1px; background:linear-gradient(90deg, var(--orange-border), var(--orange-border));
+      pointer-events:none;
     }
-    .how::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse 50% 40% at 50% 50%, rgba(255,107,0,0.04) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .how-inner { max-width: 640px; margin: 0 auto; text-align: center; position: relative; }
-    .how-inner h2 {
-      font-size: clamp(28px, 4vw, 44px);
-      font-weight: 800; letter-spacing: -1.5px; margin-bottom: 12px;
-    }
-    .how-inner > p { color: var(--muted); font-size: 15px; margin-bottom: 56px; }
-    .steps { display: flex; flex-direction: column; gap: 0; text-align: left; }
     .step {
-      display: flex; gap: 24px; padding: 32px 0;
-      border-bottom: 1px solid var(--border);
-      position: relative;
+      background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius);
+      padding:32px 28px; transition:border-color .2s, transform .2s;
     }
-    .step:last-child { border-bottom: none; }
+    .step:hover { border-color:var(--orange-border); transform:translateY(-4px); }
     .step-num {
-      width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
-      background: var(--orange-dim);
-      border: 1px solid rgba(255,107,0,0.2);
-      color: var(--orange);
-      font-weight: 800; font-size: 14px;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'JetBrains Mono', monospace;
+      width:36px; height:36px; border-radius:50%;
+      background:var(--orange-dim); border:1px solid var(--orange-border);
+      display:flex; align-items:center; justify-content:center;
+      font-size:13px; font-weight:800; color:var(--orange);
+      margin-bottom:20px;
     }
-    .step h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-    .step p { font-size: 13px; color: var(--muted); line-height: 1.7; }
-    .step-tag {
-      display: inline-flex; align-items: center; gap: 4px;
-      margin-top: 12px;
-      padding: 4px 12px; border-radius: 100px;
-      background: var(--green-dim); color: var(--green);
-      font-size: 11px; font-weight: 600;
-      border: 1px solid rgba(34,197,94,0.15);
-    }
+    .step-icon { font-size:26px; margin-bottom:14px; }
+    .step h3 { font-size:17px; font-weight:800; letter-spacing:-.3px; margin-bottom:8px; }
+    .step p { font-size:14px; color:var(--muted); line-height:1.65; }
 
-    /* ── SOCIAL PROOF ── */
-    .proof {
-      padding: 120px 24px;
-      max-width: 1100px; margin: 0 auto;
-    }
-    .proof-header { text-align: center; margin-bottom: 56px; }
-    .proof-header h2 {
-      font-size: clamp(28px, 4vw, 44px);
-      font-weight: 800; letter-spacing: -1.5px; margin-bottom: 12px;
-    }
-    .proof-header p { color: var(--muted); font-size: 15px; }
-    .proof-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 16px;
-    }
-    .proof-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 16px; padding: 28px;
-      transition: border-color .2s;
-    }
-    .proof-card:hover { border-color: rgba(255,255,255,0.12); }
-    .proof-card-top {
-      display: flex; align-items: center; gap: 12px; margin-bottom: 18px;
-    }
-    .proof-avatar {
-      width: 40px; height: 40px; border-radius: 10px;
-      background: linear-gradient(135deg, var(--orange-dim), rgba(255,107,0,0.2));
-      color: var(--orange); font-weight: 800; font-size: 16px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .proof-name { font-weight: 700; font-size: 14px; }
-    .proof-role { font-size: 12px; color: var(--muted); }
-    .proof-text { font-size: 14px; color: var(--muted); line-height: 1.8; }
-    .proof-text strong { color: var(--text); }
-    .proof-stars { margin-bottom: 14px; font-size: 14px; letter-spacing: 2px; color: #FFD600; }
-
-    /* ── LOCATION BANNER ── */
-    .location {
-      padding: 80px 24px;
-      text-align: center;
-    }
-    .location-inner {
-      max-width: 640px; margin: 0 auto;
-      background: var(--card);
+    /* ── FEATURES GRID ── */
+    .feat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; margin-top:56px; }
+    .feat {
+      background:var(--bg); padding:36px 30px;
       border: 1px solid var(--border);
-      border-radius: 24px; padding: 56px 44px;
-      position: relative; overflow: hidden;
+      transition:background .2s;
     }
-    .location-inner::before {
-      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-      width: 200px; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--orange), transparent);
+    .feat:hover { background:#0d0d0d; }
+    .feat-emoji { font-size:28px; margin-bottom:16px; display:block; }
+    .feat h3 { font-size:16px; font-weight:800; letter-spacing:-.2px; margin-bottom:8px; }
+    .feat p { font-size:13.5px; color:var(--muted); line-height:1.65; }
+
+    /* ── FOUNDER ── */
+    .founder-wrap { max-width:660px; margin:0 auto; }
+    .founder-card {
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:24px; padding:44px;
+      display:flex; gap:28px; align-items:flex-start;
+      transition:border-color .25s;
     }
-    .location-flag { font-size: 40px; margin-bottom: 20px; }
-    .location-inner h2 {
-      font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 14px;
+    .founder-card:hover { border-color:var(--orange-border); }
+    .founder-photo {
+      width:76px; height:76px; border-radius:50%; flex-shrink:0;
+      background:linear-gradient(135deg,var(--orange),#FFD600);
+      display:flex; align-items:center; justify-content:center;
+      font-size:26px; font-weight:900; color:#000;
+      overflow:hidden; border:2px solid var(--orange-border);
     }
-    .location-inner p {
-      color: var(--muted); font-size: 15px; line-height: 1.8;
+    .founder-photo img { width:100%; height:100%; object-fit:cover; }
+    .founder-quote {
+      font-size:16px; line-height:1.75; color:var(--muted);
+      font-style:italic; margin-bottom:18px;
     }
-    .location-inner p strong { color: var(--text); }
-    .city-chips {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
-      margin-top: 28px;
+    .founder-quote strong { color:var(--text); font-style:normal; }
+    .founder-name { font-size:15px; font-weight:800; letter-spacing:-.2px; }
+    .founder-title { font-size:13px; color:var(--subtle); margin-top:2px; }
+    .founder-li {
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:13px; font-weight:600; color:var(--orange);
+      text-decoration:none; margin-top:10px;
     }
-    .chip {
-      padding: 7px 16px; border-radius: 100px;
-      border: 1px solid var(--border); font-size: 13px;
-      color: var(--muted); font-weight: 500;
-    }
-    .chip.active {
-      border-color: rgba(255,107,0,0.4); color: var(--orange);
-      background: var(--orange-dim); font-weight: 600;
-    }
+    .founder-li:hover { text-decoration:underline; text-underline-offset:3px; }
+    .founder-li svg { flex-shrink:0; }
 
     /* ── WAITLIST ── */
-    .waitlist {
-      padding: 120px 24px;
-      max-width: 600px; margin: 0 auto;
-      text-align: center;
+    .waitlist-wrap { max-width:480px; margin:0 auto; text-align:center; }
+    .wl-section { background:var(--bg); }
+    .wl-form { margin-top:44px; }
+    .wl-input {
+      width:100%; background:var(--surface); border:1px solid var(--border);
+      border-radius:12px; padding:14px 18px; font-size:15px;
+      font-family:inherit; color:var(--text); margin-bottom:10px;
+      outline:none; transition:border-color .2s;
     }
-    .waitlist h2 {
-      font-size: clamp(28px, 4vw, 42px);
-      font-weight: 900; letter-spacing: -1.5px; line-height: 1.15;
-      margin-bottom: 12px;
-    }
-    .waitlist h2 em { font-style: normal; color: var(--orange); }
-    .waitlist > p { color: var(--muted); font-size: 15px; margin-bottom: 40px; }
-    .waitlist-form {
-      display: flex; flex-direction: column; gap: 14px;
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 20px; padding: 36px;
-      text-align: left;
-    }
-    .waitlist-form label {
-      font-size: 12px; font-weight: 600; letter-spacing: 0.5px;
-      color: var(--muted); text-transform: uppercase; display: block;
-      margin-bottom: 6px;
-    }
-    .waitlist-form input {
-      width: 100%; padding: 12px 16px; border-radius: 10px;
-      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
-      color: var(--text); font-size: 15px; font-family: inherit;
-      transition: border-color .2s;
-    }
-    .waitlist-form input:focus { outline: none; border-color: var(--orange); }
-    .waitlist-role-row {
-      display: flex; gap: 10px;
-    }
+    .wl-input:focus { border-color:var(--orange); }
+    .wl-input::placeholder { color:var(--subtle); }
+    .role-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
     .role-btn {
-      flex: 1; padding: 11px 10px; border-radius: 10px;
-      background: rgba(255,255,255,0.03); border: 1.5px solid var(--border);
-      color: var(--muted); font-size: 13px; font-weight: 600;
-      cursor: pointer; text-align: center; transition: all .2s;
-      font-family: inherit;
+      padding:13px; background:var(--surface); border:1px solid var(--border);
+      border-radius:12px; color:var(--muted); font-family:inherit;
+      font-size:13.5px; font-weight:600; cursor:pointer; transition:all .15s;
     }
-    .role-btn.active, .role-btn:focus { border-color: var(--orange); background: rgba(255,107,0,0.1); color: var(--text); outline: none; }
-    .waitlist-submit {
-      width: 100%; padding: 14px; border-radius: 10px;
-      background: linear-gradient(135deg, var(--orange), #E05E00);
-      color: #fff; font-weight: 700; font-size: 15px;
-      border: none; cursor: pointer; font-family: inherit;
-      transition: transform .15s, box-shadow .2s;
-      box-shadow: 0 4px 20px rgba(255,107,0,0.25);
-      margin-top: 4px;
+    .role-btn.active { background:var(--orange-dim); border-color:var(--orange); color:var(--orange); }
+    .wl-submit {
+      width:100%; padding:16px; background:var(--orange); color:#000;
+      border:none; border-radius:100px; font-family:inherit;
+      font-size:16px; font-weight:800; cursor:pointer; letter-spacing:-.2px;
+      transition:transform .15s, box-shadow .2s; margin-top:4px;
     }
-    .waitlist-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,107,0,.4); }
-    .waitlist-success {
-      display: none; text-align: center; padding: 24px;
-      color: var(--green); font-weight: 700; font-size: 16px;
+    .wl-submit:hover { transform:translateY(-2px); box-shadow:0 10px 40px rgba(255,107,0,.45); }
+    .wl-note { font-size:12px; color:var(--subtle); margin-top:12px; }
+    .wl-success {
+      display:none; padding:36px 28px;
+      background:var(--green-dim); border:1px solid rgba(34,197,94,.2);
+      border-radius:var(--radius); text-align:center;
+      animation:fadeIn .4s ease both;
     }
-    .waitlist-note { font-size: 12px; color: var(--subtle); text-align: center; margin-top: 14px; }
-
-    /* ── FINAL CTA ── */
-    .final-cta {
-      padding: 140px 24px;
-      text-align: center;
-      position: relative; overflow: hidden;
-    }
-    .final-cta::before {
-      content: ''; position: absolute; bottom: -20%; left: 50%; transform: translateX(-50%);
-      width: 700px; height: 400px;
-      background: radial-gradient(ellipse, rgba(255,107,0,0.1) 0%, transparent 65%);
-      pointer-events: none;
-    }
-    .final-cta h2 {
-      font-size: clamp(32px, 5vw, 58px);
-      font-weight: 900; letter-spacing: -2.5px; line-height: 1.1;
-      margin-bottom: 16px; max-width: 700px; margin-left: auto; margin-right: auto;
-      position: relative;
-    }
-    .final-cta h2 em { font-style: normal; color: var(--orange); }
-    .final-cta > p { color: var(--muted); font-size: 16px; margin-bottom: 40px; position: relative; }
-    .final-cta-note {
-      margin-top: 18px; font-size: 12px; color: var(--subtle); position: relative;
-    }
+    .wl-success-title { font-size:22px; font-weight:800; color:var(--green); margin-bottom:10px; }
+    .wl-success p { font-size:14px; color:var(--muted); line-height:1.65; }
+    .wl-error { display:none; font-size:12.5px; color:#ff5555; margin-bottom:10px; }
 
     /* ── FOOTER ── */
     footer {
-      padding: 36px 40px;
-      border-top: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 16px;
+      border-top:1px solid var(--border); padding:28px 24px;
+      text-align:center; font-size:13px; color:var(--subtle);
     }
-    .footer-logo {
-      font-weight: 800; font-size: 15px;
-      color: var(--text); display: flex; align-items: center; gap: 10px;
-    }
-    .footer-logo span { color: var(--orange); }
-    .footer-logo img { width: 24px; height: 24px; border-radius: 5px; object-fit: contain; }
-    footer p { font-size: 12px; color: var(--subtle); }
-    .footer-links { display: flex; gap: 24px; }
-    .footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .15s; }
-    .footer-links a:hover { color: var(--text); }
+    footer a { color:var(--muted); text-decoration:none; transition:color .15s; }
+    footer a:hover { color:var(--orange); }
 
-    /* ── DIVIDER ── */
-    .divider {
-      width: 100%; max-width: 1100px; height: 1px; margin: 0 auto;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    /* ── RESPONSIVE ── */
+    @media (max-width:900px) {
+      .hero-inner { grid-template-columns:1fr; gap:52px; text-align:center; }
+      .hero-sub { margin:0 auto 36px; }
+      .hero-actions { justify-content:center; }
+      .badge { margin:0 auto 24px; display:inline-flex; }
+      .phone-wrap { display:none; }
+      .steps { grid-template-columns:1fr; }
+      .steps::before { display:none; }
+      .feat-grid { grid-template-columns:1fr 1fr; }
+      .founder-card { padding:28px 24px; flex-direction:column; gap:20px; }
     }
-
-    /* ── MOBILE ── */
-    @media(max-width: 900px) {
-      .features-grid { grid-template-columns: repeat(2, 1fr); }
-      .nav-links { display: none; }
-    }
-    @media(max-width: 640px) {
-      nav { padding: 12px 20px; }
-      .hero { padding: 120px 20px 60px; }
-      .story, .features, .proof, .how { padding: 80px 20px; }
-      .features-grid { grid-template-columns: 1fr; }
-      .hero-stat-row { flex-direction: column; gap: 0; }
-      .hero-stat { border-right: none; border-bottom: 1px solid var(--border); padding: 20px 16px; }
-      .hero-stat:last-child { border-bottom: none; }
-      .location-inner { padding: 36px 24px; }
-      footer { flex-direction: column; text-align: center; padding: 32px 20px; }
-      .footer-links { justify-content: center; }
-      .phone-mock { width: 240px; }
+    @media (max-width:540px) {
+      .proof-bar { gap:28px; }
+      .feat-grid { grid-template-columns:1fr; }
+      .role-row { grid-template-columns:1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- SKIP NAV (WCAG 2.4.1) -->
-<a href="#main-content" class="skip-link">Skip to main content</a>
-
 <!-- NAV -->
-<nav aria-label="Main navigation">
-  <a href="#" class="nav-logo" aria-label="Namma Garage — home">
-    <img src="logo.svg?v=2" alt="" class="nav-logo-img" width="36" height="36"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-    <div class="nav-logo-fallback" style="display:none" aria-hidden="true">🔧</div>
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="logo.svg" alt="Namma Garage logo" onerror="this.style.display='none'"/>
     Namma<span>Garage</span>
   </a>
-  <div class="nav-links" role="list">
-    <a href="#features" class="nav-link" role="listitem">Features</a>
-    <a href="#how-it-works" class="nav-link" role="listitem">How it works</a>
-    <a href="https://namma-garage.vercel.app" class="nav-cta" target="_blank" rel="noopener" role="listitem">Get Early Access</a>
+  <div class="nav-right">
+    <a href="https://namma-garage.vercel.app" class="nav-try" target="_blank" rel="noopener noreferrer">Try it free →</a>
   </div>
 </nav>
 
-<main id="main-content">
-
 <!-- HERO -->
-<section class="hero" aria-labelledby="hero-heading">
-  <img src="logo.svg?v=2" alt="Namma Garage logo — orange icon with wrench" class="hero-logo reveal" width="80" height="80"
-       onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-  <div class="hero-logo-fallback reveal" style="display:none" aria-hidden="true">🔧</div>
-
-  <div class="hero-badge reveal reveal-delay-1">
-    <div class="hero-badge-dot"></div>
-    Now live in Bengaluru
-  </div>
-
-  <h1 id="hero-heading" class="reveal reveal-delay-1">The tool every <em>local mechanic</em> deserved ten years ago</h1>
-
-  <p class="hero-sub reveal reveal-delay-2">
-    Digital billing, service history, and WhatsApp invoices — built for India's independent two-wheeler garages.
-  </p>
-
-  <div class="hero-actions reveal reveal-delay-2">
-    <a href="#waitlist" class="btn-primary">🚀 Join the Waitlist — Free</a>
-    <a href="NammaGarage.apk" class="btn-apk" download aria-label="Download Namma Garage APK for Android">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Download APK
-    </a>
-  </div>
-  <div class="hero-apk-note reveal reveal-delay-3">📱 Android APK · Works offline · No Play Store needed</div>
-
-  <div class="hero-stat-row reveal reveal-delay-3">
-    <div class="hero-stat">
-      <div class="hero-stat-num"><span>80</span>%</div>
-      <div class="hero-stat-label">bikes serviced at local,<br/>unorganised garages</div>
+<section class="hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="badge r">
+        <span class="badge-dot" aria-hidden="true"></span>
+        Free for the first 100 garages
+      </div>
+      <h1 class="r d1">
+        Stop writing<br/>
+        bills in<br/>
+        <span class="hl">notebooks.</span>
+      </h1>
+      <p class="hero-sub r d2">
+        Send professional WhatsApp invoices in 30 seconds. Track customers, payments, and service history — all from your phone.
+      </p>
+      <div class="hero-actions r d3">
+        <a href="#waitlist" class="btn-primary">🚀 Join the Waitlist — Free</a>
+        <a href="https://namma-garage.vercel.app" class="btn-ghost" target="_blank" rel="noopener noreferrer">Try in browser →</a>
+      </div>
     </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num"><span>3</span> taps</div>
-      <div class="hero-stat-label">to create a full<br/>itemised invoice</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num"><span>₹0</span></div>
-      <div class="hero-stat-label">to get started — free<br/>for small garages</div>
+
+    <div class="phone-wrap r d2" aria-hidden="true">
+      <div class="phone">
+        <div class="ph-status"><span>9:41</span><span>●●● 100%</span></div>
+        <div class="ph-head">
+          <div class="ph-icon">🔧</div>
+          <div>
+            <div class="ph-head-name">Namma Garage</div>
+            <div class="ph-head-sub">Raju Auto Works · Today</div>
+          </div>
+        </div>
+        <div class="ph-stats">
+          <div class="ph-stat">
+            <div class="ph-stat-val"><span>₹</span>4,200</div>
+            <div class="ph-stat-lbl">Today's revenue</div>
+          </div>
+          <div class="ph-stat">
+            <div class="ph-stat-val">7</div>
+            <div class="ph-stat-lbl">Bikes serviced</div>
+          </div>
+        </div>
+        <div class="ph-inv">
+          <div class="ph-inv-row">
+            <div>
+              <div class="ph-inv-name">Kiran · KA-05 EF 7891</div>
+              <div class="ph-inv-sub">Oil change · Chain lube · Air filter</div>
+            </div>
+            <div class="ph-inv-amt">₹850</div>
+          </div>
+          <div class="ph-badge">✓ PAID</div>
+        </div>
+        <div class="ph-wa">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.549 4.103 1.512 5.836L.057 23.203a.75.75 0 0 0 .94.94l5.367-1.455A11.95 11.95 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22.5a10.45 10.45 0 0 1-5.428-1.515l-.388-.232-4.025 1.092 1.092-4.025-.232-.388A10.45 10.45 0 0 1 1.5 12C1.5 6.21 6.21 1.5 12 1.5S22.5 6.21 22.5 12 17.79 22.5 12 22.5z"/></svg>
+          Send WhatsApp Invoice
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- TRUSTED BY -->
-<div class="marquee-section">
-  <div class="marquee-label">Built for the backbone of Indian mobility</div>
-  <div class="marquee-track">
-    <div class="marquee-item">HONDA ACTIVA</div>
-    <div class="marquee-item">TVS JUPITER</div>
-    <div class="marquee-item">BAJAJ PULSAR</div>
-    <div class="marquee-item">ROYAL ENFIELD</div>
-    <div class="marquee-item">HERO SPLENDOR</div>
-    <div class="marquee-item">YAMAHA FZ</div>
-    <div class="marquee-item">SUZUKI ACCESS</div>
+<!-- PROOF BAR -->
+<div class="proof-bar" role="list">
+  <div class="proof-item r" role="listitem">
+    <div class="proof-num" data-target="10">10</div>
+    <div class="proof-text">garages in<br/>Bengaluru</div>
+  </div>
+  <div class="proof-item r d1" role="listitem">
+    <div class="proof-num">30s</div>
+    <div class="proof-text">to send a<br/>WhatsApp bill</div>
+  </div>
+  <div class="proof-item r d2" role="listitem">
+    <div class="proof-num">₹0</div>
+    <div class="proof-text">free forever for<br/>early members</div>
   </div>
 </div>
 
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="wrap">
+    <div class="eyebrow r">How it works</div>
+    <h2 class="section-h r d1">Three steps.<br/>No training needed.</h2>
+    <p class="section-p r d2">If you can use WhatsApp, you can use Namma Garage.</p>
 
-<!-- STORY / PROBLEM -->
-<section class="story">
-  <div class="section-label reveal">The Problem</div>
-
-  <div class="story-quote reveal">
-    Two friends. Same Royal Enfield. Same service.<br/>
-    <em>One paid ₹4,000. The other paid ₹2,500.</em><br/>
-    Neither got a bill that meant anything.
-  </div>
-
-  <div class="story-body reveal">
-    <p>
-      That's not an edge case — that's the everyday reality for crores of two-wheeler owners across India. Your mechanic is skilled, your mechanic is trustworthy, but the tools he works with haven't changed in 30 years. <strong>A notebook. A mental ledger. A handshake.</strong>
-    </p>
-    <p>
-      No itemised bill. No service history. No reminder when the next oil change is due. When the customer drives away, there's no record for either side. Trust gets built — and lost — on gut feel alone.
-    </p>
-    <p>
-      <strong>Namma Garage changes that.</strong> We give independent mechanics the same digital infrastructure that big brand showrooms have had for years — simple enough to use on a ₹10,000 phone, powerful enough to run an entire garage.
-    </p>
+    <div class="steps">
+      <div class="step r d1">
+        <div class="step-num">1</div>
+        <div class="step-icon">📱</div>
+        <h3>Enter the customer's phone</h3>
+        <p>Type the number — returning customers auto-fill instantly. Name, bike, plate number. No typing twice.</p>
+      </div>
+      <div class="step r d2">
+        <div class="step-num">2</div>
+        <div class="step-icon">🔧</div>
+        <h3>Pick the services done</h3>
+        <p>Your catalog is saved. Tap oil change, tyre puncture, chain lube — prices fill automatically. Edit if needed.</p>
+      </div>
+      <div class="step r d3">
+        <div class="step-num">3</div>
+        <div class="step-icon">✅</div>
+        <h3>Send the bill on WhatsApp</h3>
+        <p>One tap sends a clean invoice to the customer's WhatsApp. They get it instantly. You keep the record.</p>
+      </div>
+    </div>
   </div>
 </section>
-
-<div class="divider"></div>
-
 
 <!-- FEATURES -->
-<section class="features" id="features" aria-labelledby="features-heading">
-  <div class="features-header reveal">
-    <div class="section-label" style="justify-content:center">What it does</div>
-    <h2 id="features-heading">Everything a garage needs.<br/>Nothing it doesn't.</h2>
-    <p>No training. No internet dependency. Works on any Android phone.</p>
-  </div>
+<section class="section alt">
+  <div class="wrap">
+    <div class="eyebrow r">Why mechanics love it</div>
+    <h2 class="section-h r d1">Built for real garages.<br/>Not for offices.</h2>
 
-  <div class="features-grid reveal">
-    <div class="feature-card">
-      <div class="feature-icon">📋</div>
-      <h3>Instant Digital Bills</h3>
-      <p>Generate a proper itemised invoice in seconds. Every service, every part, every labour charge — listed clearly.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">💬</div>
-      <h3>WhatsApp Invoice</h3>
-      <p>Send the complete bill to the customer's WhatsApp — with garage name, vehicle details, and full service breakdown.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">📁</div>
-      <h3>Full Vehicle History</h3>
-      <p>Every customer, every bike, every visit — searchable in seconds. Know exactly what was done 6 months ago.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">⚡</div>
-      <h3>Works Offline</h3>
-      <p>No wifi? No problem. Everything saves locally first. Sync happens automatically when you're back online.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">📊</div>
-      <h3>Revenue Dashboard</h3>
-      <p>Today's earnings, pending payments, 7-day revenue chart — at a glance. Know your business better than a notebook.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🌐</div>
-      <h3>Your Language</h3>
-      <p>Full app in Kannada, Hindi, Tamil, and Telugu. Menus, invoices, messages — because your business runs in your language.</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- APP PREVIEW -->
-<section class="app-preview">
-  <div class="app-preview-header reveal">
-    <div class="section-label" style="justify-content:center">The app</div>
-    <h2>Designed for a ₹10,000 phone.<br/>Powerful enough for any garage.</h2>
-    <p>Clean, fast, no clutter — just what a busy mechanic needs.</p>
-  </div>
-
-  <div class="phone-mock reveal" aria-hidden="true" role="img" aria-label="App preview showing the Namma Garage dashboard">
-    <div class="phone-screen">
-      <div class="phone-notch"></div>
-      <div class="phone-content">
-        <div class="phone-header">
-          <div class="phone-header-name">Namma Garage</div>
-          <div class="phone-header-date">Tuesday, 17 March</div>
-        </div>
-        <div class="phone-btn">
-          <div class="phone-btn-text">+ NEW SERVICE</div>
-        </div>
-        <div class="phone-stats">
-          <div class="phone-stat-card">
-            <div class="phone-stat-val">₹4,200</div>
-            <div class="phone-stat-lbl">Revenue</div>
-          </div>
-          <div class="phone-stat-card">
-            <div class="phone-stat-val">6</div>
-            <div class="phone-stat-lbl">Services</div>
-          </div>
-        </div>
-        <div class="phone-chart-label">7-Day Revenue</div>
-        <div class="phone-chart">
-          <div class="phone-bar" style="height:40%"></div>
-          <div class="phone-bar" style="height:65%"></div>
-          <div class="phone-bar" style="height:30%"></div>
-          <div class="phone-bar" style="height:80%"></div>
-          <div class="phone-bar" style="height:55%"></div>
-          <div class="phone-bar" style="height:45%"></div>
-          <div class="phone-bar today" style="height:100%"></div>
-        </div>
+    <div class="feat-grid">
+      <div class="feat r d1">
+        <span class="feat-emoji">📴</span>
+        <h3>Works offline</h3>
+        <p>No Wi-Fi at the garage? Doesn't matter. Everything saves on your phone. Syncs when you're back online.</p>
+      </div>
+      <div class="feat r d2">
+        <span class="feat-emoji">📞</span>
+        <h3>Auto-fills customers</h3>
+        <p>Regular customers? Their name, bike, and plate auto-fill when you type their number. One tap, done.</p>
+      </div>
+      <div class="feat r d3">
+        <span class="feat-emoji">💰</span>
+        <h3>Track who hasn't paid</h3>
+        <p>See pending bills at a glance. Mark paid with one tap. No more tracking in your head.</p>
+      </div>
+      <div class="feat r d1">
+        <span class="feat-emoji">📊</span>
+        <h3>Daily revenue on home screen</h3>
+        <p>How much did you make today? This week? The app shows it the moment you open it.</p>
+      </div>
+      <div class="feat r d2">
+        <span class="feat-emoji">🗣️</span>
+        <h3>Works in Kannada</h3>
+        <p>Full Kannada language support. Switch in one tap from settings. Built for Bengaluru first.</p>
+      </div>
+      <div class="feat r d3">
+        <span class="feat-emoji">🆓</span>
+        <h3>Free. No hidden charges.</h3>
+        <p>Free forever for early members. No subscription. No Play Store needed — download the APK directly.</p>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
-
-<!-- HOW IT WORKS -->
-<section class="how" id="how-it-works" aria-labelledby="how-heading">
-  <div class="how-inner">
-    <div class="section-label reveal" style="justify-content:center">How it works</div>
-    <h2 id="how-heading" class="reveal">From first visit to paid invoice<br/>in under 2 minutes</h2>
-    <p class="reveal">Designed for mechanics, not software engineers.</p>
-
-    <div class="steps" role="list" aria-label="Steps to create an invoice">
-      <div class="step reveal" role="listitem">
-        <div class="step-num">01</div>
-        <div>
-          <h3>Enter customer details</h3>
-          <p>Type the phone number. If they've visited before, everything auto-fills — name, bike, plate number. New customer? One quick form.</p>
-          <span class="step-tag">Returns auto-recognised</span>
+<!-- FOUNDER -->
+<section class="section">
+  <div class="wrap">
+    <div class="eyebrow r" style="text-align:center">The person behind this</div>
+    <div class="founder-wrap">
+      <div class="founder-card r d1">
+        <div class="founder-photo">
+          <img src="syed.jpg" alt="Syed Irfan, founder of Namma Garage" onerror="this.parentElement.innerHTML='SI'"/>
         </div>
-      </div>
-      <div class="step reveal" role="listitem">
-        <div class="step-num">02</div>
         <div>
-          <h3>Pick services from your catalog</h3>
-          <p>Tap oil change, brake pad, spark plug — or any custom service you've added. Prices are pre-set but editable per job. Add labour charges separately.</p>
-          <span class="step-tag">Your catalog, your prices</span>
-        </div>
-      </div>
-      <div class="step reveal" role="listitem">
-        <div class="step-num">03</div>
-        <div>
-          <h3>Save and send the invoice</h3>
-          <p>Mark as Paid or Unpaid. Hit send — and the customer gets a proper WhatsApp bill in seconds. You get a permanent record forever.</p>
-          <span class="step-tag">WhatsApp delivery built-in</span>
+          <p class="founder-quote">
+            "I built Namma Garage because I watched mechanics in Bengaluru lose track of payments and write the same customer details over and over in notebooks every single day. <strong>There's a better way, and it should be free.</strong>"
+          </p>
+          <div class="founder-name">Syed Irfan</div>
+          <div class="founder-title">Founder, Namma Garage · Bengaluru</div>
+          <a href="https://www.linkedin.com/in/syed-irfan-056b69197/" target="_blank" rel="noopener noreferrer" class="founder-li">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            Connect on LinkedIn
+          </a>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<div class="divider"></div>
-
-
-<!-- TESTIMONIALS -->
-<section class="proof">
-  <div class="proof-header reveal">
-    <div class="section-label" style="justify-content:center">Early users</div>
-    <h2>Mechanics who tried it<br/>won't go back to notebooks</h2>
-    <p>Feedback from garage owners in Bengaluru during our pilot.</p>
-  </div>
-
-  <div class="proof-grid">
-    <div class="proof-card reveal">
-      <div class="proof-stars" aria-label="5 out of 5 stars" role="img">★★★★★</div>
-      <div class="proof-card-top">
-        <div class="proof-avatar">R</div>
-        <div>
-          <div class="proof-name">Rajan K.</div>
-          <div class="proof-role">Garage owner · Koramangala</div>
-        </div>
-      </div>
-      <p class="proof-text">"Before this, customers would argue about the bill all the time. Now I show them the WhatsApp message — <strong>no more fights.</strong> They trust it because it's written down."</p>
-    </div>
-    <div class="proof-card reveal reveal-delay-1">
-      <div class="proof-stars" aria-label="5 out of 5 stars" role="img">★★★★★</div>
-      <div class="proof-card-top">
-        <div class="proof-avatar">M</div>
-        <div>
-          <div class="proof-name">Mohammed Irfan</div>
-          <div class="proof-role">Two-wheeler mechanic · Shivajinagar</div>
-        </div>
-      </div>
-      <p class="proof-text">"My cousin told me to try it. I thought it would be complicated. But I understood everything in <strong>10 minutes</strong>. Even works in Kannada."</p>
-    </div>
-    <div class="proof-card reveal reveal-delay-2">
-      <div class="proof-stars" aria-label="5 out of 5 stars" role="img">★★★★★</div>
-      <div class="proof-card-top">
-        <div class="proof-avatar">S</div>
-        <div>
-          <div class="proof-name">Suresh B.</div>
-          <div class="proof-role">Multi-bay garage · JP Nagar</div>
-        </div>
-      </div>
-      <p class="proof-text">"I have three mechanics working under me. Now I can see <strong>every invoice from any bike</strong> on my phone. I know exactly what happened each day."</p>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-
-<!-- LOCATION -->
-<section class="location">
-  <div class="location-inner reveal">
-    <div class="location-flag">📍</div>
-    <h2>Starting in Bengaluru.<br/>Scaling across India.</h2>
-    <p>
-      Bengaluru has over <strong>40,000 independent mechanics</strong> — skilled, hardworking people who run their business on memory and trust. We're starting here, getting it right, and then taking it to every city where the local garage is the backbone of two-wheeler ownership.
-    </p>
-    <div class="city-chips">
-      <div class="chip active">Bengaluru — Live</div>
-      <div class="chip">Chennai</div>
-      <div class="chip">Hyderabad</div>
-      <div class="chip">Mumbai</div>
-      <div class="chip">Delhi</div>
-    </div>
-  </div>
-</section>
-
 
 <!-- WAITLIST -->
-<section class="waitlist" id="waitlist" aria-labelledby="waitlist-heading">
-  <div class="section-label reveal" style="justify-content:center">Early access</div>
-  <h2 id="waitlist-heading" class="reveal">Be the first garage in <em>your area</em></h2>
-  <p class="reveal">Join 200+ mechanics already on the waitlist. Free forever for early members.</p>
+<section class="section wl-section" id="waitlist">
+  <div class="wrap">
+    <div class="waitlist-wrap">
+      <div class="eyebrow r">Early access</div>
+      <h2 class="section-h r d1">Be the first garage<br/>in your area.</h2>
+      <p class="section-p r d2" style="margin:0 auto">Free forever for the first 100 garages. Drop your details — we'll reach you on WhatsApp when we launch near you.</p>
 
-  <div class="waitlist-form reveal" id="waitlist-form">
-    <div>
-      <label for="wl-name">Your name</label>
-      <input type="text" id="wl-name" name="name" placeholder="e.g. Rajan Kumar" autocomplete="name" required/>
-    </div>
-    <div>
-      <label for="wl-phone">WhatsApp number</label>
-      <input type="tel" id="wl-phone" name="phone" placeholder="+91 98765 43210" autocomplete="tel" required/>
-    </div>
-    <div>
-      <label>I am a…</label>
-      <div class="waitlist-role-row" role="group" aria-label="Select your role">
-        <button type="button" class="role-btn active" id="role-mechanic" onclick="selectRole('mechanic')">🔧 Mechanic / Garage owner</button>
-        <button type="button" class="role-btn" id="role-biker" onclick="selectRole('biker')">🏍️ Bike owner</button>
+      <div class="wl-form r d3">
+        <div id="wl-form-inner">
+          <div class="wl-error" id="wl-error" role="alert"></div>
+          <input class="wl-input" id="wl-name" type="text" placeholder="Your name" autocomplete="name" aria-label="Your name"/>
+          <input class="wl-input" id="wl-phone" type="tel" placeholder="WhatsApp number (e.g. 9876543210)" autocomplete="tel" aria-label="WhatsApp number"/>
+          <div class="role-row" role="group" aria-label="Select your role">
+            <button class="role-btn active" data-role="Mechanic / Garage Owner" onclick="pickRole(this)">🔧 Mechanic / Garage Owner</button>
+            <button class="role-btn" data-role="Bike Owner" onclick="pickRole(this)">🏍️ Bike Owner</button>
+          </div>
+          <button class="wl-submit" onclick="submitWaitlist()">🚀 Reserve my spot — Free</button>
+          <p class="wl-note">No spam ever. One WhatsApp message when we launch near you.</p>
+        </div>
+        <div class="wl-success" id="wl-success" role="status">
+          <div class="wl-success-title">✅ You're on the list!</div>
+          <p>We've got your details. We'll WhatsApp you when we launch near you. Welcome to Namma Garage.</p>
+        </div>
       </div>
-      <input type="hidden" id="wl-role" value="mechanic"/>
     </div>
-    <button class="waitlist-submit" type="button" onclick="submitWaitlist()">🚀 Reserve my spot — Free</button>
-    <p class="waitlist-note">No spam. We'll send one message when we launch near you.</p>
-  </div>
-  <div class="waitlist-success" id="waitlist-success">
-    ✅ You're on the list! We'll WhatsApp you when Namma Garage launches near you.
   </div>
 </section>
-
-<div class="divider"></div>
-
-
-<!-- FINAL CTA -->
-<section class="final-cta" id="early-access">
-  <div class="section-label reveal" style="justify-content:center">Get started</div>
-  <h2 class="reveal">Give your garage the tools it <em>always</em> deserved</h2>
-  <p class="reveal">Free for independent garages. No credit card. No setup fee. Just download and start billing.</p>
-
-  <div class="hero-actions reveal">
-    <a href="https://namma-garage.vercel.app" class="btn-primary" target="_blank" rel="noopener noreferrer">🚀 Open the App — Free</a>
-    <a href="https://wa.me/918309672283?text=Hi%2C+I%27d+like+to+try+Namma+Garage" class="btn-ghost" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp us (opens in new tab)">WhatsApp us</a>
-  </div>
-  <p class="final-cta-note reveal">Available on Android · iOS coming soon</p>
-</section>
-
-
-</main>
 
 <!-- FOOTER -->
-<footer role="contentinfo">
-  <div>
-    <div class="footer-logo">
-      <img src="logo.svg?v=2" alt="" width="24" height="24" onerror="this.outerHTML='🔧'"/>
-      Namma<span>Garage</span>
-    </div>
-    <p style="margin-top:8px;font-size:12px;color:var(--subtle)">Built with ❤️ in Bengaluru by <a href="https://www.linkedin.com/in/syed-irfan-056b69197/" target="_blank" rel="noopener noreferrer" style="color:var(--muted);text-decoration:underline;text-underline-offset:3px">Syed Irfan</a></p>
-  </div>
-  <p>&copy; 2026 NammaGarage. Built in Bengaluru.</p>
-  <div class="footer-links">
-    <a href="#">Privacy</a>
-    <a href="#">Terms</a>
-    <a href="mailto:hello@nammagarage.in">Contact</a>
-    <a href="https://www.linkedin.com/in/syed-irfan-056b69197/" target="_blank" rel="noopener noreferrer" aria-label="Founder LinkedIn (opens in new tab)">LinkedIn</a>
-  </div>
+<footer>
+  <p>© 2026 Namma Garage · Built in Bengaluru by <a href="https://www.linkedin.com/in/syed-irfan-056b69197/" target="_blank" rel="noopener noreferrer">Syed Irfan</a></p>
+  <p style="margin-top:6px">
+    <a href="https://namma-garage.vercel.app" target="_blank" rel="noopener noreferrer">Try the app</a>
+    &nbsp;·&nbsp;
+    <a href="NammaGarage.apk" download>Download APK</a>
+    &nbsp;·&nbsp;
+    <a href="https://wa.me/918309672283?text=Hi%2C+I%27d+like+to+know+more+about+Namma+Garage" target="_blank" rel="noopener noreferrer">WhatsApp us</a>
+  </p>
 </footer>
 
-
-<!-- SCROLL REVEAL SCRIPT -->
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
+  // ── SCROLL REVEAL ──
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -32px 0px' });
+  document.querySelectorAll('.r').forEach(el => revealObs.observe(el));
 
-<!-- WAITLIST SCRIPT -->
-<script>
-  function selectRole(role) {
-    document.getElementById('wl-role').value = role;
-    document.getElementById('role-mechanic').classList.toggle('active', role === 'mechanic');
-    document.getElementById('role-biker').classList.toggle('active', role === 'biker');
+  // ── ROLE SELECT ──
+  let selectedRole = 'Mechanic / Garage Owner';
+  function pickRole(btn) {
+    document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedRole = btn.dataset.role;
   }
 
+  // ── WAITLIST → WHATSAPP NOTIFICATION ──
   function submitWaitlist() {
+    const errEl = document.getElementById('wl-error');
     const name = document.getElementById('wl-name').value.trim();
-    const phone = document.getElementById('wl-phone').value.trim();
-    const role = document.getElementById('wl-role').value;
+    const phone = document.getElementById('wl-phone').value.replace(/\D/g, '');
 
-    if (!name) { document.getElementById('wl-name').focus(); return; }
-    if (!phone) { document.getElementById('wl-phone').focus(); return; }
+    errEl.style.display = 'none';
 
-    // Store locally as fallback
-    const entry = { name, phone, role, ts: Date.now() };
-    const existing = JSON.parse(localStorage.getItem('ng_waitlist') || '[]');
-    existing.push(entry);
-    localStorage.setItem('ng_waitlist', JSON.stringify(existing));
+    if (!name) {
+      errEl.textContent = 'Please enter your name.';
+      errEl.style.display = 'block';
+      document.getElementById('wl-name').focus();
+      return;
+    }
+    if (phone.length < 10) {
+      errEl.textContent = 'Please enter a valid 10-digit WhatsApp number.';
+      errEl.style.display = 'block';
+      document.getElementById('wl-phone').focus();
+      return;
+    }
 
-    // Send to Formspree (no backend needed)
-    fetch('https://formspree.io/f/mwpkrdpj', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ name, phone, role })
-    }).catch(() => {}); // fail silently — localStorage already saved
+    // Save locally as backup
+    try {
+      const leads = JSON.parse(localStorage.getItem('ng_leads') || '[]');
+      leads.push({ name, phone, role: selectedRole, ts: new Date().toISOString() });
+      localStorage.setItem('ng_leads', JSON.stringify(leads));
+    } catch(e) {}
 
-    document.getElementById('waitlist-form').style.display = 'none';
-    document.getElementById('waitlist-success').style.display = 'block';
+    // Send notification to Syed via WhatsApp
+    const msg = `🔔 *New Namma Garage Waitlist Signup!*\n\n👤 Name: ${name}\n📱 Phone: +91 ${phone}\n🏷️ Role: ${selectedRole}\n\n—\nnammaagarage-landing.vercel.app`;
+    window.open(`https://wa.me/918309672283?text=${encodeURIComponent(msg)}`, '_blank');
+
+    // Show success state
+    document.getElementById('wl-form-inner').style.display = 'none';
+    const success = document.getElementById('wl-success');
+    success.style.display = 'block';
   }
-</script>
 
+  // Enter key support
+  ['wl-name', 'wl-phone'].forEach(id => {
+    document.getElementById(id).addEventListener('keydown', e => {
+      if (e.key === 'Enter') submitWaitlist();
+    });
+  });
+</script>
 </body>
 </html>
